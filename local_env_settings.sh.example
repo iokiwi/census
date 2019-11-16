@@ -1,0 +1,19 @@
+# Any settings you want to override go here.
+
+export VERIFY_SSL_OR_TLS=False
+export FLASK_ENV=development
+export FLASK_DEBUG=1
+
+DATABASE_TYPE="mysql"
+DATABASE_HOST="localhost" 
+DATABASE_PORT="3306"
+DATABASE_USER="a_username"
+DATABASE_PASS="a strong and unique password"
+
+# SQLALCHEMY_DATABASE_URI="postgresql://scott:tiger@localhost/mydatabase"
+# SQLALCHEMY_DATABASE_URI="mysql://scott:tiger@localhost/mydatabase"
+# SQLALCHEMY_DATABASE_URI="sqlite:////absolute/path/to/foo.db"
+# https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/#connection-uri-format
+
+
+SECRET_TOKEN="a strong token"

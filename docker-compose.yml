@@ -1,0 +1,13 @@
+version: '3.2'
+services:
+  census:
+    build: .
+    volumes:
+      - ./census/:/opt/census
+    command: --hot-reload
+    environment:
+      - VERIFY_SSL_OR_TLS=${VERIFY_SSL_OR_TLS}
+      - SECRET_TOKEN=${SECRET_TOKEN}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
+    ports:
+      - "8000:8000"
