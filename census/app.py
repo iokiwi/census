@@ -22,6 +22,9 @@ db.create_all()
 def count(reference):
     token = request.headers.get("token", None)
 
+    for h in request.headers:
+        print(h)
+
     if token is None or token != config.SECRET_TOKEN:
         abort(401)
 
@@ -30,19 +33,7 @@ def count(reference):
                                 origin_ip=str(request.remote_addr))
         db.session.add(submission)
         db.session.commit()
-        return jsonify({
-            "id": submission.id,
-            "reference": submission.reference,
-            "origin_ip": submission.origin_ip
-        })
+        return f"count={submission.id}"
     except Exception as e:
         print(e)
         pass
-
-# @app.errorhandler(401)
-# def api_error_handler(error):
-#     body = error.to_dict()
-#     LOG.error(body) 
-#     response = jsonify(body)
-#     response.status_code = error.status_code
-#     return response
