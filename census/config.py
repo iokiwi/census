@@ -11,7 +11,5 @@ def parse_boolean(value):
     return value
 
 
-# VERIFY_SSL_OR_TLS = parse_boolean(os.environ.get("VERIFY_SSL_OR_TLS", True))
 SECRET_TOKEN = os.environ.get("SECRET_TOKEN")
 SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
-print(SQLALCHEMY_DATABASE_URI)

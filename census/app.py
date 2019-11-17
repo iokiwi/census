@@ -13,9 +13,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
 db = SQLAlchemy(app)
 
-db.create_all()
-
 from census.models.submission import Submission # noqa 
+
+db.create_all()
 
 
 @app.route("/count/<reference>")

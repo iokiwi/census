@@ -1,4 +1,5 @@
 .vscode/
+data/
 local_env_settings.sh
 
 # Byte-compiled / optimized / DLL files

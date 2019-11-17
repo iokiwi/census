@@ -4,9 +4,8 @@ services:
     build: .
     volumes:
       - ./census/:/opt/census
-    command: --hot-reload
+      - ./data/:/opt/data
     environment:
-      - VERIFY_SSL_OR_TLS=${VERIFY_SSL_OR_TLS}
       - SECRET_TOKEN=${SECRET_TOKEN}
       - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
     ports:

@@ -25,7 +25,7 @@ done
 # Start service
 if [ "$START_SERVICE" = true ] || [ "$HOT_RELOAD" = true ]
 then
-    if [ "$HOT_RELOAD" = true ]
+  if [ "$HOT_RELOAD" = true ]
     then
       echo "Starting Gunicorn with hot reloading."
       exec gunicorn census.app:app \
