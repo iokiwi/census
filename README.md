@@ -28,6 +28,10 @@ source env_setup && docker-compose run -p 8000:8000 census --hot-reload
 
 ## Configuration
 
+Configuration can be done in `local_env_settings.sh`.
+
+Running `source env_setup.sh` will load the config into your environment where docker-compose can then pick up the values and pass them through to the container's own evironment.
+
 |Property|Description|
 |---|---|
 |`SECRET_TOKEN`|This is the token that must be provided for authorization. Should be a long, unique, random string containing letters, numbers and symbols|
