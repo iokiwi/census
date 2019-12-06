@@ -26,7 +26,7 @@ RUN apk add --no-cache \
           git;
 
 HEALTHCHECK --interval=2s --timeout=5s --retries=5 \
-   CMD curl -f http://localhost:8000/ || exit 1
+   CMD curl -f http://localhost:8000/healthcheck || exit 1
 
 EXPOSE 8000
 
