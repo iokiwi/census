@@ -4,38 +4,77 @@ Census is a web microservice which provides persistent enumeration as a service.
 
 A need arose for service, similar to the [Random Number Generator Service](http://reporting.qualtrics.com/projects/randomNumGen.php) but instead for generating a series of sequential numbers. I.e, a Serial Number Generator as it were.
 
+## Up and running
+
+```bash
+docker-compose build
+```
+
+```
+cp local_env_settings.sh.example local_env_settings.sh
+```
+
+Edit `local_env_settings.sh`
+
+```bash
+source env_setup && docker-compose up -d
+```
+
+To start the server for development
+```bash
+source env_setup && docker-compose run -p 8000:8000 census --hot-reload
+```
+
+## Configuration
+
+|||
+|---|---|
+|`SECRET_TOKEN`|This is the token that must be provided for authorization. Should be a long, unique, random string containing letters, numbers and symbols|
+|`SQLALCHEMY_DATABASE_URI`|Database connection URI in [SQAlchemy Connection URI Format](https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/#connection-uri-format)|
+
+## Contributing
+
+ * Issues - https://github.com/iokiwi/census/issues
+ * PRs - https://github.com/iokiwi/census/pulls
+
+# API Reference
+
+## Authorization
+
+Authorization is done by passing a secret token as a header.
+
+```http
+GET count/1
+token: SB5wnG#eUObS8FDJVp*WKnNB5t4**WIc1hdeLGTwtJgN%kb7m3VRS!$d4x2l1*i!
+```
+
+The value of the token is the value `SECRET_TOKEN` is configured as in `local_env_settings.sh`.
+
+## Resources 
+
+### Get next number in sequence
+```http
+GET /count/:reference HTTP/1.1
+```
+
+|Field|Location|Description|
+|---|---|---|
+|token|header|Authorization token|
+|reference|path|A value to be stored in the database as a reference to associate the request with data on the client side|
+
+**Example Request**
 ```bash
 curl -X GET \
-  http://127.0.0.1:8000/count/gMW2xO1q2VZF \
+  http://127.0.0.1:8000/count/1 \
   -H 'token: SB5wnG#eUObS8FDJVp*WKnNB5t4**WIc1hdeLGTwtJgN%kb7m3VRS!$d4x2l1*i!'
 ```
 
-```json
-{
-    "id": 1,
-    "origin_ip": "172.19.0.1",
-    "reference": "gMW2xO1q2VZF"
-}
+**Example Response**
+```
+Content-Type: text/html; charset=utf-8
+
+count=1
 ```
 
 Calling the service a second time will increment the ID.
 
-```bash
-curl -X GET \
-  http://127.0.0.1:8000/count/gMW2xO1q2VZF \
-  -H 'token: SB5wnG#eUObS8FDJVp*WKnNB5t4**WIc1hdeLGTwtJgN%kb7m3VRS!$d4x2l1*i!'
-```
-
-```json
-{
-    "id": 2,
-    "origin_ip": "172.19.0.1",
-    "reference": "gMW2xO1q2VZF"
-}
-```
-
-## Features
-
-Auth - Preshared secret key which must be provided
-Origin IP - Audit trail of IP addresses requesting service
-Reference - Requestor may provide a reference number which may be used to correlate requests to requestors.
